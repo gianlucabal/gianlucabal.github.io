@@ -26,20 +26,26 @@ function getParameterByName(name, url) {
 var destination = getParameterByName('destination');
 
 // Leggi il valore di destinationPage da localStorage
-var destinationPage = localStorage.getItem('destinationPage') || "http://192.168.1.40/"; // Valore predefinito se non è presente in localStorage
+var destinationPage = localStorage.getItem('destinationPage') || "http://www.google.com/"; // Valore predefinito se non è presente in localStorage
 
 // Logga il valore di destinationPage sulla console per debug
 console.log("Valore di destinationPage:", destinationPage);
 
+var delay = 10000; // 3 secondi
+
+// Effettua il reindirizzamento solo se destination è definito dopo il ritardo
+setTimeout(function() {
+    if (destination) {
+        // Effettua il reindirizzamento
+        destinationPage = destination;
+        window.location.href = destinationPage;
+    } else {
+        // Reindirizza verso la pagina predefinita se il parametro 'destination' non è definito
+        window.location.href = destinationPage;
+        console.error("Il parametro 'destination' non è stato fornito nella richiesta GET.");
+    }
+}, delay);
 // Se destination è definito, aggiorna il valore di destinationPage e salvalo in localStorage
-if (destination) {
-    destinationPage = destination;
-    localStorage.setItem('destinationPage', destinationPage);
-} else {
-    // Reindirizza verso la pagina predefinita se il parametro 'destination' non è definito
-    window.location.href = destinationPage;
-    console.error("Il parametro 'destination' non è stato fornito nella richiesta GET.");
-}
 
 </script>
 
