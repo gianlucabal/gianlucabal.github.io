@@ -1,54 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redirect Page</title>
+<title>Form di Salvataggio Dati</title>
 </head>
 <body>
 
-<!-- Messaggio di avviso o di istruzioni -->
-<p>Stai per essere reindirizzato su un'altra pagina.</p>
+<h2>Form di Salvataggio Dati</h2>
 
-<script>
-// Funzione per ottenere il valore di un parametro dalla query string dell'URL
-function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[[\]]/g, '\\$&');
-    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
+<form id="dataForm">
+  <label for="name">Nome:</label><br>
+  <input type="text" id="name" name="name"><br>
+  <label for="email">Email:</label><br>
+  <input type="email" id="email" name="email"><br><br>
+  <button type="submit">Salva</button>
+</form>
 
-// Ottieni il valore del parametro 'destination' dalla query string dell'URL
-var destination = getParameterByName('destination');
+<div id="savedData"></div>
 
-// Leggi il valore di destinationPage da localStorage
-var destinationPage = localStorage.getItem('destinationPage') || "http://www.google.com/"; // Valore predefinito se non è presente in localStorage
-
-// Logga il valore di destinationPage sulla console per debug
-console.log("Valore di destinationPage:", destinationPage);
-
-var delay = 10000; // 3 secondi
-
-// Effettua il reindirizzamento solo se destination è definito dopo il ritardo
-setTimeout(function() {
-    if (destination) {
-        // Effettua il reindirizzamento
-        destinationPage = destination;
-        window.location.href = destinationPage;
-    } else {
-        // Reindirizza verso la pagina predefinita se il parametro 'destination' non è definito
-        window.location.href = destinationPage;
-        console.error("Il parametro 'destination' non è stato fornito nella richiesta GET.");
-    }
-}, delay);
-// Se destination è definito, aggiorna il valore di destinationPage e salvalo in localStorage
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
-
