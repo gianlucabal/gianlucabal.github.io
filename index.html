@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redirect Page</title>
+</head>
+<body>
+
+<!-- Messaggio di avviso o di istruzioni -->
+<p>Stai per essere reindirizzato su un'altra pagina.</p>
+
+<script>
+// Funzione per ottenere il valore di un parametro dalla query string dell'URL
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+// Ottieni il valore del parametro 'destination' dalla query string dell'URL
+var destination = getParameterByName('destination');
+
+// Leggi il valore di destinationPage da localStorage
+var destinationPage = localStorage.getItem('destinationPage') || "http://192.168.1.40/"; // Valore predefinito se non è presente in localStorage
+
+// Logga il valore di destinationPage sulla console per debug
+console.log("Valore di destinationPage:", destinationPage);
+
+// Se destination è definito, aggiorna il valore di destinationPage e salvalo in localStorage
+if (destination) {
+    destinationPage = destination;
+    localStorage.setItem('destinationPage', destinationPage);
+} else {
+    // Reindirizza verso la pagina predefinita se il parametro 'destination' non è definito
+    window.location.href = destinationPage;
+    console.error("Il parametro 'destination' non è stato fornito nella richiesta GET.");
+}
+
+</script>
+
+</body>
+</html>
+
